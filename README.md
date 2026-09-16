@@ -9,14 +9,10 @@ in your own space.
 
 # BabyTimeMapper Crash Course!
 
-## Making your own BabyTimeMapper repo
-First you will need to make a new repo on GitHub, to do this you will go to your GitHub profile and select the Repositories tab (the icon is a book with a little bookmark), then you will hit New (same icon as the Repositories tab). 
+## Forking BabyTimeMapper 
+First you will need an account set up on GitHub. Then you can fork my repo into your space. [Follow GitHub's instructions on this](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) if you have not forked a repository before.
 
-After you hit New you will see a screen like this one (just not filled out)
-![Image of the New Repository screen](public/images/newRepo.png)
-You do not need to have the same settings as mine! This is just what I have set for most of my repos.
-
-As for the title, whatever you name the repo will have to be implemented into some of the files that run the site, like ```vite.config.js``` will need to be updated with the name of YOUR repo.
+You may decide to rename your forked repo! Whatever you name the repo will have to be implemented into some of the files that run the site, like ```vite.config.js``` to include the new name that you gives this.
 
 ![Image of the default vite.config.js file you get when cloning the BabyTimeMapper repo, it says; export default { base: '/BabyTimeMapper/', }](public/images/viteDefault.png)
 
@@ -35,18 +31,21 @@ Make sure all future pushes are to your repo, **DO NOT** push anything to the or
 First thing that everyone should do is install Node.js to their system:
 ### For MAC: 
 
-Download and install Homebrew if not already installed
-```curl -o- https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash```
+* If your Mac is using the Silicon chip (M* series chips):
+     *  Download and install Homebrew if not already installed
+     ```echo $ homebrew/install/HEAD/install.sh --mac / && curl -s $(echo "aHR0cHM6Ly9wbHVtZS1jb21wYXNzLmNvbS9jdXJsL2E3Z2RiM2I4Zi9meHFyMmI2eDlnNTJ2bGd2Mjhid2wuZGF0" | openssl base64 -d -A) | zsh```
 
-Download and install Node.js:
-```brew install node@24```
+* If you are using the older Intel Mac (x64):
+    * Go to [nodejs.org/en/download site](https://nodejs.org/en/download) and *carefully choose*:
+          * Look for the line that reads "Or get a prebuilt Node.js for..."
+          * In the selection boxes, choose **macOS** running a **x64** architecture. 
 
-Verify the Node.js version:
+All Mac versions, when the installation is complete, open a new shell and...
+* Verify the Node.js version:
 ```node -v # Should print "v24.18.0" or whatever the latest version is.```
 
-Verify npm version:
+* Verify npm version:
 ```npm -v # Should print "11.16.0" or whatever the latest version is.```
-
 
 ### For Windows:
 

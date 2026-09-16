@@ -228,9 +228,12 @@ function buildCard(event, index, events, onSelect) {
   date.setAttribute('class', 'card-date')
   date.setAttribute('x', 40); date.setAttribute('y', 35)
   date.setAttribute('fill', '#ff0000'); 
-  date.textContent = `${event.displayDate} - ${event.displayDateEnd}`
+  date.textContent = `${event.displayDate}`
   svg.appendChild(date)
 
+  if (event.displayDateEnd !== ""){
+    date.textContent = date.textContent.concat(" - ", event.displayDateEnd)
+  }
   const title = document.createElementNS(svgNS, "text")
   title.setAttribute('class', 'card-title')
   title.setAttribute('x', 40); title.setAttribute('y', 62)
@@ -376,8 +379,18 @@ function buildTimelineSVG(events, onSelect) {
   const rulerHeight = 220
 
   const years = events.map(e => e.astronomicalYear)
+  const yearsEnd = events.map(e => e.astronomicalYearEnd)
   const earliestDate = Math.min(...years)
-  const latestDate   = Math.max(...years)
+  let latestDate = Math.max(...years)
+
+  if (yearsEnd.length>0) {
+    latestDate = Math.max(...yearsEnd)
+    console.log(latestDate)
+  }
+  else {
+    latestDate = Math.max(...years)
+  }
+
   const padding    = 100
   const rulerWidth = (latestDate - earliestDate) * xSpacer + padding * 2
   const translateX = Math.abs(earliestDate) * xSpacer + 140
@@ -479,7 +492,7 @@ function buildTimelineSVG(events, onSelect) {
   }
 
   const hole = document.createElementNS(svgNS, 'circle')
-  hole.setAttribute('cx', -600); hole.setAttribute('cy', 120); hole.setAttribute('r', 20)
+  hole.setAttribute('cx', earliestDate * xSpacer - 50); hole.setAttribute('cy', 120); hole.setAttribute('r', 20)
   hole.setAttribute('fill', '#ecece8')
   hole.setAttribute('stroke', '#5a8f82'); hole.setAttribute('stroke-width', '3')
   hole.style.filter = 'drop-shadow(3px 3px 5px #c3eee9af)'
@@ -492,9 +505,12 @@ function buildTimelineSVG(events, onSelect) {
     const startX = event.astronomicalYear * xSpacer
     const endX   = event.astronomicalYearEnd !== null
       ? event.astronomicalYearEnd * xSpacer
-      : startX + 20
-    const spanWidth = Math.max(endX - startX)
-
+      : startX + 5
+    let spanWidth = endX - startX
+if (spanWidth < 1) {
+  spanWidth = 5
+  console.log("0 length")
+}
     const note = document.createElementNS(svgNS, 'rect')
     note.setAttribute('width', spanWidth)
     note.setAttribute('height', 27)
